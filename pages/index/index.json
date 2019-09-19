@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "notice": "/components/notice/notice",
+    "counter": "/components/counter/counter"
+  }
+}
