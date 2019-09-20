@@ -1,4 +1,4 @@
-import { call, put, take, fork, cancelled } from 'redux-saga/effects'
+import { call, put, take, fork, race } from 'redux-saga/effects'
 import { INCREMENT_COUNTER, CANCEL_COUNTER, INCREMENT_COUNTER_ASYNC, UPDATING_COUNTER } from "../ACTION";
 import { CANCEL } from 'redux-saga'
 
@@ -37,13 +37,15 @@ function* increment() {
 function* watchIncrement() {
   let lastTask;
   while (true) {
-    const action = yield take([ INCREMENT_COUNTER_ASYNC, CANCEL_COUNTER ]);
-    if (action.type === INCREMENT_COUNTER_ASYNC) {
+    const { incrementSync, cancel } = yield race({
+      incrementSync: take(INCREMENT_COUNTER_ASYNC),
+      cancel: take(CANCEL_COUNTER)
+    });
+    if (incrementSync) {
       if (!lastTask || !lastTask.isRunning()) {
         lastTask = yield fork(increment);
       }
-    }
-    if (action.type === CANCEL_COUNTER) {
+    } else if (cancel) {
       if (lastTask && lastTask.isRunning()) {
         lastTask.cancel();
       }
