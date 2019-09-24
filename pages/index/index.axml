@@ -1,6 +1,8 @@
 <view>
     <notice noticeId="{{id}}"/>
 
+    <counter-viewer />
+
     <counter />
 
     <button onTap="newPage">new page<button>

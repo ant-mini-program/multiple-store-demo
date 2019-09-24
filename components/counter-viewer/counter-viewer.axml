@@ -1,0 +1,4 @@
+<view style="border:1px solid yellow;padding:10px;margin:0 0 50px 0;">
+<view a:if="{{updating}}" style="color:red">updating</view>
+<view>count: {{count}}</view>
+</view>

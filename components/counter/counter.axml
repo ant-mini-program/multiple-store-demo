@@ -1,7 +1,4 @@
 <view style="border:1px solid green;padding:10px;margin:0 0 50px 0;">
-<view a:if="{{updating}}" style="color:red">updating</view>
-<view>count: {{count}}</view>
-
-<button onTap="increment">increment after 2 seconds</button>
+<button onTap="increment">increment {{count}} to {{count+1}} after 2 seconds</button>
 <button onTap="cancel">cancel last increment</button>
 </view>
